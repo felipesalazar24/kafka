@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-kafka-deployment
+  labels:
+    app: ms-kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-kafka
+  template:
+    metadata:
+      labels:
+        app: ms-kafka
+    spec:
+      containers:
+        - name: ms-kafka
+          image: felipesalazar24/ms-kafka:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8086
+          env:
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
